@@ -16,19 +16,19 @@ def file_menu_open():
             text = f.read()
             win.title(file_path.split("/")[-1])
             editor.insert("1.0", text)
-            f.close()
     except FileNotFoundError:
         pass
 
 def file_menu_save_as():
-    global file_path
-    if file_path == "":
-        print("Im in")
-        file_path = fd.asksaveasfilename(filetypes=(("Text file", "*.txt"),),defaultextension=".txt")
-    with open(file_path,"w",encoding="utf-8") as f:
-        print(file_path)
-        f.write(editor.get("1.0","end"))
-        win.title(file_path.split("/")[-1])
+    try:
+        global file_path
+        if file_path == "":
+            file_path = fd.asksaveasfilename(filetypes=(("Text file", "*.txt"),),defaultextension=".txt")
+        with open(file_path,"w",encoding="utf-8") as f:
+            f.write(editor.get("1.0","end"))
+            win.title(file_path.split("/")[-1])
+    except FileNotFoundError:
+        file_path = ""
 
 def file_menu_exit():
     dialog_result = msg.askyesno(title="Exit", message="Are you sure you want to exit?")
