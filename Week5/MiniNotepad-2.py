@@ -41,6 +41,17 @@ def show_about():
 def on_right_click(event):
     context_menu.tk_popup(event.x_root, event.y_root)
 
+def new_(event):
+    file_menu_new()
+
+def open_(event):
+    file_menu_open()
+
+def save_(event):
+    file_menu_save_as()
+
+def exit_(event):
+    file_menu_exit()
 # Window
 win = tk.Tk()
 win.geometry("415x215")
@@ -79,11 +90,20 @@ win.bind("<Button-3>",on_right_click)
 
 # File Menu
 file_menu = tk.Menu(menubar,tearoff=0)
-file_menu.add_command(label="New",underline=0,command=file_menu_new)
-file_menu.add_command(label="Open...",underline=0,command=file_menu_open)
-file_menu.add_command(label="Save",underline=0,command=file_menu_save_as)
-file_menu.add_command(label="Save As...",underline=1,command=file_menu_save_as)
-file_menu.add_command(label="Exit",underline=0,command=file_menu_exit)
+file_menu.add_command(label="New",underline=0,command=file_menu_new,accelerator="Ctrl + N")
+file_menu.add_command(label="Open...",underline=0,command=file_menu_open,accelerator="Ctrl + O")
+file_menu.add_command(label="Save",underline=0,command=file_menu_save_as,accelerator="Ctrl + S")
+file_menu.add_command(label="Save As...",underline=1,command=file_menu_save_as,accelerator="Ctrl + Shift + S")
+file_menu.add_command(label="Exit",underline=0,command=file_menu_exit,accelerator="Ctrl + Q")
+
+# Accelerator Binding
+win.bind("<Control-n>",new_)
+win.bind("<Control-o>",open_)
+win.bind("<Control-s>",save_)
+win.bind("<Control-Shift-S>",save_)
+win.bind("<Control-q>",exit_)
+
+
 
 # Help Menu
 help_menu = tk.Menu(menubar,tearoff=0)
